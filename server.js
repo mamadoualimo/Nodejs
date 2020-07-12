@@ -1,27 +1,10 @@
-let http = require('http')
-let fs = require('fs')
-let url = require('url')
-const { EventEmitter } = require('events')
-// la fonction evenement
+let map = require('lodash')
 
-let App = {
-    start: function (port) {
-        let emitter = new EventEmitter()
-        let server = http.createServer((request, response) => {
-            response.writeHead(200, {
-                'Content-type': 'text/html; charset=utf-8'
-            })
-            if (request.url === '/') {
-                emitter.emit('root', response)
-            }
+console.log(map([1, 2, 3], function(n) { return n * 3; }))
 
-            response.end()
-        }).listen(port)
-        return emitter
-    }
-}
+let app = require('./app').start(8080)
 
-let app = App.start(8080)
+
 app.on('root', function (response) {
     response.write('Je suis à la racine')
 })
@@ -47,3 +30,4 @@ server.on('request', (request, response) => {
 })
 server.listen(8080)
 */
+
